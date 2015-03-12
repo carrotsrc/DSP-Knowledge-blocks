@@ -1,7 +1,7 @@
 # generate sine wave of frequency f0, at sample rate fs
-# with phase offset of phi, and amplitude of A
-sine.generate <- function(f0, A, x, phi = 0) {
-	wave = A*sin(2*pi*f0*x+phi)
+# with phase offset of theta, and amplitude of A
+sine.generate <- function(f0, A, x, theta = 0) {
+	wave = A*sin(2*pi*f0*x+theta)
 	return(wave)
 }
 
@@ -13,7 +13,7 @@ time.generate <- function(fs, seconds=1) {
 	return(seq(0,v,u))
 }
 
-# Calculate angular frequency/speed of
+# Calculate angular frequency/velocity of
 # wave of frequency f0
 sine.freqAngular <- function(f0) {
 	return(2*pi*f0)
@@ -23,10 +23,4 @@ sine.freqAngular <- function(f0) {
 # frequency, at time t with a phase of theta
 sine.phaseInst <- function(f0, t, theta = 0) {
 	return( sine.freqAngular(f0)*t+theta )
-}
-
-# Calculate instantaeous phase of wave of f0
-# frequency at time t with phase theta 0
-sine.freqInstAngular <- function(f0, t, theta = 0) {
-	return( (sine.phaseInst(f0,t, theta)/(2*pi)) )
 }
