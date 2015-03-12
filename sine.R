@@ -8,9 +8,9 @@ sine.generate <- function(f0, A, x, theta = 0) {
 # Generate a vector of time of sample
 # rate fs for seconds of time
 time.generate <- function(fs, seconds=1) {
-	fs <- fs-1
+	range <- fs-1
 	u <- 1/fs
-	v <- u*fs*seconds
+	v <- u*range*seconds
 	return(seq(0,v,u))
 }
 
@@ -29,10 +29,15 @@ sine.phaseInst <- function(f0, t, theta = 0) {
 # Generate a chirp between frequency f0
 # and f1, along the provided x values
 sine.chirp <- function(f0, f1, x) {
-	nfs = length(x)-1;
+	nfs = length(x);
 	fdelta = f1-f0
-	index = c(0:nfs)
+	
+	index = c(0:(nfs-1))
+	
+	
 	tmp = f0 + ( (fdelta) * (index/nfs) )
-	y = sin( 2 * pi * x * tmp )
+	ntmp = x*tmp
+	print(ntmp)
+	y = sin( 2 * pi * ntmp )
 	return( y )
 }
