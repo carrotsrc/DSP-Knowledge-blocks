@@ -33,11 +33,7 @@ sine.chirp <- function(f0, f1, x) {
 	fdelta = f1-f0
 	
 	index = c(0:(nfs-1))
-	
-	
-	tmp = f0 + ( (fdelta) * (index/nfs) /2 )
-	ntmp = x*tmp
-	print(ntmp)
-	y = sin( 2 * pi * ntmp )
+
+	y = sin( sine.freqAngular(x * (f0 +( fdelta) * (index/nfs) / 2)) )
 	return( y )
 }
