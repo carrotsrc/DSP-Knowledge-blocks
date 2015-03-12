@@ -5,17 +5,20 @@ sine.generate <- function(f0, A, x, phi = 0) {
 	return(wave)
 }
 
-generate_samples <- function(fs, seconds=1) {
+generate.samples <- function(fs, seconds=1) {
 	u <- 1/fs
 	v <- u*fs*seconds
 	return(seq(0,v,u))
 }
 
-sine.angfreq <- function(f0) {
-	omega = 2*pi*f0;
-	return(omega)
+sine.freqAngular <- function(f0) {
+	return(2*pi*f0)
 }
 
-sine.instphase <- function(f0, t, theta = 0) {
-	return( sine.angfreq(f0)*t+theta )
+sine.phaseInst <- function(f0, t, theta = 0) {
+	return( sine.freqAngular(f0)*t+theta )
+}
+
+sine.freqInstAngular <- function(f0, t, theta = 0) {
+	return( (sine.phaseInst(f0,t, theta)/(2*pi)) )
 }
