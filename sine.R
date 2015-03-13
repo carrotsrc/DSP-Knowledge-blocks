@@ -39,9 +39,11 @@ sine.chirp <- function(f0, f1, x, theta = 0) {
 }
 
 sine.waveChirp <- function(f0, f1, t, fs, x) {
+
 	startSample <- (t*fs)-1
-	end <- length(x)-1
+	end <- length(x)
 	index  <- 0
+	
 	y <- vector()
 	
 	for(index in 0:startSample) {
@@ -50,12 +52,14 @@ sine.waveChirp <- function(f0, f1, t, fs, x) {
 	}
 	
 	fdelta <- f1-f0;
-	nfs <- length(x)-startSample+1
+	nfs <- length(x)-startSample
+	startSample <- startSample + 1
 	pindex <- 0
+	
+	
 	for(index in startSample:end) {
-		y <- c(y, sin( sine.phaseInst((f0 + fdelta * (pindex/nfs) / 2 ), x[index])))
+		y <- c( y, sin( sine.phaseInst((f0 + fdelta * (pindex/nfs) / 2 ), x[index])) )
 		pindex <- pindex+1;
-		
 	}
 	
 	return(y)
