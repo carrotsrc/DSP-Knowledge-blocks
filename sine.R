@@ -28,12 +28,30 @@ sine.phaseInst <- function(f0, t, theta = 0) {
 
 # Generate a chirp between frequency f0
 # and f1, along the provided x values
-sine.chirp <- function(f0, f1, x) {
+sine.chirp <- function(f0, f1, x, theta = 0) {
 	nfs = length(x);
 	fdelta = f1-f0
 	
 	index = c(0:(nfs-1))
 
-	y = sin( sine.freqAngular(x * (f0 +( fdelta) * (index/nfs) / 2)) )
+	y = sin( sine.freqAngular(x * (f0 +( fdelta) * (index/nfs) / 2)) + theta )
 	return( y )
+}
+
+sine.waveChirp <- function(f0, f1, t, fs, x) {
+	startSample <- (t*fs)-1
+	end <- length(x)-1
+	index  <- 0
+	y <- vector()
+	
+	for(index in 0:startSample) {
+		xv <- x[index]
+		y <- c(y, sin( sine.phaseInst(f0,xv) ))
+	}
+	
+	for(index in startSample:end) {
+		
+	}
+	
+	return(y)
 }
