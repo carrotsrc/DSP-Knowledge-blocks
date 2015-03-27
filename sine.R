@@ -29,48 +29,60 @@ sine.phaseInst <- function(f0, t, theta = 0) {
 # Generate a chirp between frequency f0
 # and f1, along the provided x values
 sine.chirp <- function(f0, f1, x, theta = 0) {
-	nfs = length(x);
-	fdelta = f1-f0
+	nfs <- length(x);
+	fdelta <- f1-f0
 	
-	index = c(0:(nfs-1))
+	index <- c(0:(nfs-1))
 
-	y = sin( sine.freqAngular(x * (f0 +( fdelta) * (index/nfs) / 2)) + theta )
+	y = sin( sine.freqAngular(x * (f0 +(fdelta) * (index/nfs) * 0.5)) + theta )
 	return( y )
 }
 
-sine.waveChirp <- function(f0, f1, t1, t2, fs, x) {
-
+# Generate a chirp starting at an arbitrary time
+sine.delayChirp <- function(f0, f1, t1, t2, fs, x) {
+	
 	startSample <- (t1*fs)-1
 	endSample <- (t2*fs)-1
-	
+
+	pi2 <- 2*pi;
 	end <- length(x)
-	
 	index  <- 0
 	
 	y <- vector()
 	
 	for(index in 0:startSample) {
-		xv <- x[index]
-		y <- c(y, sin( sine.phaseInst(f0,xv) ))
+		y <- c(y, sin( sine.phaseInst(f0,x[index]) ))
 	}
 	
-	fdelta <- f1-f0;
-	nfs <- endSample-startSample
-	startSample <- startSample + 1
-	pindex <- 0
 	
+	sampleRange <- endSample-startSample	
+	
+	freqStep <- (f1-f0)/sampleRange
+	step <- 0
+	fn <- f0
+	endSample <- endSample
+	phase <- 0
+	phaseOld <- sine.phaseInst(f0, x[index])
 	
 	for(index in startSample:endSample) {
-		y <- c( y, sin( sine.phaseInst((f0 + fdelta * (pindex/nfs) / 2 ), x[index])) )
-		pindex <- pindex+1;
+		fn <- fn + freqStep
+		if(index == startSample)
+			print(fn)
+
+		phaseDelta = (pi2*fn)/fs;
+		phase <- phaseOld+phaseDelta %% pi2
+		phaseOld <- phase
+		y <- c(y, sin(phase))
+
 	}
-	pInst <- sine.phaseInst((f0 + fdelta * (pindex/nfs) / 2 ), x[index+2])
+	
+	print(fn)	
 	endSample <- (endSample + 1)
-	print(pInst)
-	print(f0 + fdelta * (pindex/nfs))
+	end <- end - 1
+	phase <- phase + phaseDelta
 	for(index in endSample:end) {
 		xv <- x[index]
-		y <- c(y, sin( sine.phaseInst(f1,xv, pInst) ))
+		y <- c(y, sin( sine.phaseInst(fn,xv, phase) ))
 	}
 	return(y)
 }
