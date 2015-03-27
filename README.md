@@ -16,7 +16,7 @@ Calculate angular frequency for F0
 
 `sine.phaseInst()`
 
-Calculate instantaneous frequency at sample x(t) at F0
+Calculate instantaneous phase at sample x(t) at F0
 
 `sine.chirp()`
 
