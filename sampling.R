@@ -11,6 +11,10 @@ bandpass.fs <- function(fc, B, m) {
 # Calculate the nyquist criterion
 # fs for a given center frequency of
 # fc and a bandwidth B
-bandpass.nyquistCriterion(fc, B) {
+bandpass.nyquistCriterion <- function(fc, B) {
 	return(2*(fc+(B/2)))
+}
+
+bandpass.replicationSNR <- function(m) {
+	return(10*log(m+1))
 }

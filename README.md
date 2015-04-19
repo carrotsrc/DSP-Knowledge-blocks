@@ -28,10 +28,10 @@ Generate a wave of F0, Start generating a chirp between time t1 and t2 up to F1,
 
 ### Sampling
 
-`bandpass.fs`
+`bandpass.fs()`
 
 Calculate the minimum and maximum sample frequency for bandpass sampling, with a center frequency fc in a Bandwidth B with m spectral replications
 
-`bandpass.nyquistCriterion`
+`bandpass.nyquistCriterion()`
 
-Calculate the Nyquist criterion for bandpass sample centred on frequency fc with Bandwidth B
+Calculate the Nyquist criterion for bandpass sampling centred on frequency fc with Bandwidth B
