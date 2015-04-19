@@ -19,5 +19,5 @@ bandpass.nyquistCriterion <- function(fc, B) {
 # when using m spectral replication
 # for sampling translation
 bandpass.replicationSNR <- function(m) {
-	return(10*log(m+1))
+	return(10*log(m+1, 10))
 }
