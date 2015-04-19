@@ -35,3 +35,7 @@ Calculate the minimum and maximum sample frequency for bandpass sampling, with a
 `bandpass.nyquistCriterion()`
 
 Calculate the Nyquist criterion for bandpass sampling centred on frequency fc with Bandwidth B
+
+`bandpass.replicationSNR()`
+
+Calculate the signal-to-noise ration when using sampling translation with m spectrum replicas
